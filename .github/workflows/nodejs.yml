@@ -1,0 +1,30 @@
+name: Node CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+      - name: Use correct version of node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - name: use pnpm
+        run: corepack enable pnpm
+      - name: install dependencies
+        run: pnpm i
+      - name: validate code style
+        run: pnpm lint
+      - name: typecheck
+        run: pnpm typecheck
+      - name: build
+        run: pnpm build
+      - name: generate static pages
+        run: pnpm generate
