@@ -115,11 +115,14 @@ export function useCSVData() {
 
     const grouping = ['title', 'artists']
 
+    const globalFilter = ref<undefined | string>(undefined)
+
     return {
         data: computed(() => (data?.value?.songData ?? [])),
         columns,
         sorting,
         groupingOptions,
-        grouping
+        grouping,
+        globalFilter
     }
 }
