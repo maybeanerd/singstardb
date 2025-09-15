@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { data } = useCSVData()
+
 </script>
 
 <template>
@@ -9,7 +10,8 @@ const { data } = useCSVData()
     </h1>
 
     <div class="flex items-center gap-2">
-      <UTable :data="data" class="flex-1" />
+      <UTable v-if="data" :data="data" class="flex-1" />
+      <div v-else>Loading...</div>
     </div>
   </div>
 </template>

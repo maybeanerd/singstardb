@@ -36,6 +36,7 @@ async function parseSongFile(filePath: string) {
     const content = await fs.readFile(filePath, 'utf-8')
     // Simple CSV parsing: first line is header, rest are data
     const [headerLine, ...lines] = content.split('\n').filter(Boolean)
+    // TODO fix logic
     const headers = headerLine ? headerLine.split(',') : []
     return lines.map(line => {
         const values = line.split(',')
