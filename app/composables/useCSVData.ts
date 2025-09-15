@@ -68,7 +68,7 @@ export function useCSVData() {
             accessorKey: 'artists',
             header: sortableHeaderConstructor('Artists'),
             cell: ({ row }) => joinIfArray(row.getValue('artists')),
-            aggregationFn: 'unique'
+            aggregationFn: 'min'
         },
         {
             accessorKey: 'console',
@@ -113,7 +113,7 @@ export function useCSVData() {
         getGroupedRowModel: getGroupedRowModel()
     })
 
-    const grouping = ['title', 'artists']
+    const grouping = ['title', 'disc']
 
     const globalFilter = ref<undefined | string>(undefined)
 

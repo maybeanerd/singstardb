@@ -21,7 +21,7 @@ const { data, columns, sorting, grouping, groupingOptions, globalFilter } = useC
           td: 'empty:p-0' // helps with the colspaned row added for expand slot
         }" :sticky="true" :grouping-options="groupingOptions" :grouping="grouping" class="flex-1 max-h-10/12 w-screen">
         <template #title-cell="{ row }">
-          <div v-if="row.getIsGrouped()" class="flex items-center">
+          <div v-if="row.getIsGrouped() && row.getLeafRows().length > 1" class="flex items-center">
             <span class="inline-block" :style="{ width: `calc(${row.depth} * 1rem)` }" />
             <UButton variant="outline" color="neutral" class="mr-2" size="xs"
               :icon="row.getIsExpanded() ? 'i-lucide-minus' : 'i-lucide-plus'" @click="row.toggleExpanded()" />
@@ -29,6 +29,7 @@ const { data, columns, sorting, grouping, groupingOptions, globalFilter } = useC
               row.original.title
             }}</strong>
           </div>
+          <div v-else></div>
         </template>
       </UTable>
       <div v-else>Loading...</div>
