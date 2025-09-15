@@ -1,6 +1,5 @@
 import fs from 'fs/promises'
 import path from 'path'
-import { title } from 'process'
 
 // Helper to recursively get all files in discs directory (async)
 async function getAllDiscFiles(baseDir: string) {
