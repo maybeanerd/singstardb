@@ -44,11 +44,19 @@ async function parseSongFile(filePath: string) {
     })
 }
 
+export type Song = {
+    console: string
+    disc: string
+    language: string
+    title: string
+    artist: string
+}
+
 // Main function to get all songs with details (async)
 async function getAllSongsWithDetails() {
     const baseDir = path.resolve(process.cwd(), 'discs')
     const files = await getAllDiscFiles(baseDir)
-    const allSongs: any[] = []
+    const allSongs: Array<Song> = []
     for (const { console, disc, language, filePath } of files) {
         const songs = await parseSongFile(filePath)
         songs.forEach(song => {

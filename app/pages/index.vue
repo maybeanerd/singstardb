@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const { data } = useCSVData()
+
+const { data, columns, sorting } = useCSVData()
+
 
 </script>
 
@@ -10,7 +12,8 @@ const { data } = useCSVData()
     </h1>
 
     <div class="flex items-center gap-2">
-      <UTable v-if="data" :data="data" class="flex-1" />
+      <UButton>Hi Ho Button</UButton>
+      <UTable v-if="data" v-model:sorting="sorting" :data="data" :columns="columns" class="flex-1" />
       <div v-else>Loading...</div>
     </div>
   </div>
