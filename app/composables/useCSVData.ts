@@ -41,7 +41,7 @@ function joinIfArray(value: unknown) {
 }
 
 function createGroupableCell(row: Row, label: string) {
-    return row.getIsGrouped() ? joinIfArray(row.getValue(label)) : row.getValue('label')
+    return row.getIsGrouped() ? joinIfArray(row.getValue(label)) : row.getValue(label)
 }
 
 function groupableCellConstructor(title: string) {
@@ -79,7 +79,17 @@ export function useCSVData() {
         {
             accessorKey: 'language',
             header: 'Region',
-            cell: groupableCellConstructor('language'),
+            cell: ({ row }) => {
+                const value = row.getValue('language')
+
+                if (row.getIsGrouped()) {
+                    if (Array.isArray(value) && value.length > 1) {
+                        return 'multiple'
+                    }
+                }
+
+                return value
+            },
             aggregationFn: 'unique'
 
         },
