@@ -59,8 +59,9 @@ export function useCSVData() {
             header: sortableHeaderConstructor('Title'),
         },
         {
-            accessorKey: 'artist',
-            header: sortableHeaderConstructor('Artist'),
+            accessorKey: 'artists',
+            header: sortableHeaderConstructor('Artists'),
+            cell: ({ row }) => (row.getValue('artists') as Array<unknown>).join(', ')
         }
     ]
 
@@ -74,7 +75,7 @@ export function useCSVData() {
 
 
     return {
-        data: computed(() => (data?.value?.songData ?? []).slice(0, 10)),
+        data: computed(() => (data?.value?.songData ?? [])),
         columns,
         sorting
     }

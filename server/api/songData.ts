@@ -17,9 +17,9 @@ async function getAllDiscFiles(baseDir: string) {
                         const languagePath = path.join(discPath, languageFile)
                         if ((await fs.stat(languagePath)).isFile()) {
                             result.push({
-                                console: consoleName,
-                                disc: discName,
-                                language: path.parse(languageFile).name,
+                                console: consoleName.trim(),
+                                disc: discName.trim(),
+                                language: path.parse(languageFile).name.trim(),
                                 filePath: languagePath
                             })
                         }
@@ -38,8 +38,8 @@ async function parseSongFile(filePath: string) {
     return lines.map(line => {
         const values = line.split('";"').map(v => v.replace('"', ''))
         return {
-            title: values[0] || 'Unknown Title',
-            artist: values[1] || 'Unknown Artist',
+            title: values[0]?.trim() || 'Unknown Title',
+            artists: values.slice(1).map(v => v.trim()).filter(Boolean) || ['Unknown Artist'],
         }
     })
 }
@@ -49,7 +49,7 @@ export type Song = {
     disc: string
     language: string
     title: string
-    artist: string
+    artists: Array<string>
 }
 
 // Main function to get all songs with details (async)

@@ -11,9 +11,9 @@ const { data, columns, sorting } = useCSVData()
       Nuxt UI - Starter
     </h1>
 
-    <div class="flex items-center gap-2">
-      <UButton>Hi Ho Button</UButton>
-      <UTable v-if="data" v-model:sorting="sorting" :data="data" :columns="columns" class="flex-1" />
+    <div class="overflow-scroll">
+      <UTable v-if="data" v-model:sorting="sorting" :data="data" :columns="columns" :sticky="true"
+        class="flex-1 max-h-8/12" />
       <div v-else>Loading...</div>
     </div>
   </div>
