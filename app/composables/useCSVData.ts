@@ -36,8 +36,12 @@ function sortableHeaderConstructor(title: string) {
     }
 }
 
+function joinIfArray(value: unknown) {
+    return Array.isArray(value) ? value.join(', ') : value
+}
+
 function createGroupableCell(row: Row, label: string) {
-    return row.getIsGrouped() ? (row.getValue(label) as Array<unknown>).join(', ') : row.getValue('label')
+    return row.getIsGrouped() ? joinIfArray(row.getValue(label)) : row.getValue('label')
 }
 
 function groupableCellConstructor(title: string) {
@@ -55,35 +59,36 @@ export function useCSVData() {
 
     const columns: TableColumn<Song>[] = [
         {
-            accessorKey: 'console',
-            cell: groupableCellConstructor('console'),
-            header: sortableHeaderConstructor('Platform'),
-            aggregationFn: 'unique'
-        },
-        {
-            accessorKey: 'disc', cell: groupableCellConstructor('disc'),
-            header: sortableHeaderConstructor('Disc'),
-            aggregationFn: 'unique'
-        },
-        {
-            accessorKey: 'language',
-            header: sortableHeaderConstructor('Region'),
-            cell: groupableCellConstructor('language'),
-            aggregationFn: 'unique'
-
-        },
-        {
             accessorKey: 'title',
             header: sortableHeaderConstructor('Title'),
             cell: groupableCellConstructor('title'),
             aggregationFn: 'unique'
         },
-        /* {
+        {
             accessorKey: 'artists',
             header: sortableHeaderConstructor('Artists'),
-            cell: ({ row }) => (row.getValue('artists') as Array<unknown> ?? []).join(', '),
+            cell: ({ row }) => joinIfArray(row.getValue('artists')),
             aggregationFn: 'unique'
-        } */
+        },
+        {
+            accessorKey: 'console',
+            cell: groupableCellConstructor('console'),
+            header: 'Platform',
+            aggregationFn: 'unique'
+        },
+        {
+            accessorKey: 'language',
+            header: 'Region',
+            cell: groupableCellConstructor('language'),
+            aggregationFn: 'unique'
+
+        },
+        {
+            accessorKey: 'disc', cell: groupableCellConstructor('disc'),
+            header: 'Disc',
+            aggregationFn: 'unique'
+        },
+
     ]
 
     const sorting = ref([
@@ -94,11 +99,11 @@ export function useCSVData() {
     ])
 
     const groupingOptions = ref<GroupingOptions>({
-        groupedColumnMode: 'remove',
+        groupedColumnMode: 'reorder',
         getGroupedRowModel: getGroupedRowModel()
     })
 
-    const grouping = ['title']
+    const grouping = ['title', 'artists']
 
     return {
         data: computed(() => (data?.value?.songData ?? [])),

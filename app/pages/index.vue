@@ -13,7 +13,7 @@ const { data, columns, sorting, grouping, groupingOptions } = useCSVData()
 
     <div class="overflow-scroll">
       <UTable v-if="data" v-model:sorting="sorting" :data="data" :columns="columns" :sticky="true"
-        :grouping-options="groupingOptions" :grouping="grouping" class="flex-1 max-h-10/12" />
+        :grouping-options="groupingOptions" :grouping="grouping" class="flex-1 max-h-10/12 w-screen" />
       <div v-else>Loading...</div>
     </div>
   </div>
