@@ -1,7 +1,6 @@
 import fs from 'fs/promises'
 import path from 'path'
 
-// Helper to recursively get all files in discs directory (async)
 async function getAllDiscFiles(baseDir: string) {
     const result: { console: string, disc: string, language: string, filePath: string }[] = []
     const consoles = await fs.readdir(baseDir)
@@ -31,7 +30,6 @@ async function getAllDiscFiles(baseDir: string) {
     return result
 }
 
-/** Parse a file to extract song/artist data (assuming CSV, adjust as needed) (async) */
 async function parseSongFile(filePath: string) {
     const content = await fs.readFile(filePath, 'utf-8')
     const lines = content.split('\n').filter(Boolean)
@@ -52,7 +50,6 @@ export type Song = {
     artists: Array<string>
 }
 
-// Main function to get all songs with details (async)
 async function getAllSongsWithDetails() {
     const baseDir = path.resolve(process.cwd(), 'discs')
     const files = await getAllDiscFiles(baseDir)
