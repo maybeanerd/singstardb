@@ -20,7 +20,7 @@
     "nuxt": "4.2.0"
   },
   "devDependencies": {
-    "@nuxt/eslint": "1.9.0",
+    "@nuxt/eslint": "1.15.2",
     "eslint": "9.35.0",
     "typescript": "5.9.2"
   }
